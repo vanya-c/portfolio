@@ -24,8 +24,8 @@
     const ratio = narrow ? vw / vh : 1.6;
     const bRatio = narrow ? 0.022 : 0.012;
 
-    // Видимый размер ноутбука в отдалённом состоянии
-    const Wsmall = narrow ? vw * 0.8 : Math.min(vw * 0.6, vh * 0.78 * 1.6, 980);
+    // Видимый размер ноутбука в отдалённом состоянии (с аккуратными полями по бокам)
+    const Wsmall = narrow ? vw * 0.76 : Math.min(vw * 0.52, vh * 0.68 * 1.6, 820);
     const Hsmall = Wsmall / ratio;
     const gWsmall = Wsmall * (1 - 2 * bRatio);
 
@@ -86,9 +86,9 @@
       const closedAngle = lerp(openAngle, 90, closeT);
       const angle = lerp(closedAngle, 0, zoom);
 
-      // Лёгкий ракурс сверху, чтобы у закрытого мака был чётко виден объём и передняя грань
-      const tiltOpen = lerp(22, 14, open);
-      const tilt = lerp(lerp(tiltOpen, 22, closeT), 0, zoom);
+      // Ракурс сверху вниз (отрицательный rotateX), чтобы чётко были видны крышка, клавиатура, тачпад и 3D-толщина
+      const tiltOpen = lerp(-24, -18, open);
+      const tilt = lerp(lerp(tiltOpen, -24, closeT), 0, zoom);
 
       // Минимальный зазор 1px при закрытии только против z-fighting
       const liftFactor = lerp(lerp(1, 0, open), 1, closeT);
@@ -97,12 +97,13 @@
 
       // Камера: уменьшение от 1 к minScale (никогда не увеличивает растр выше 1:1)
       const s = lerp(minScale, 1, zoom);
-      const shiftK = narrow ? 0.08 : 0.14;
-      const shiftFactor = lerp(lerp(0.85, 0.45, open), 0.85, closeT);
+      const shiftK = narrow ? 0.04 : 0.06;
+      const shiftFactor = lerp(lerp(0.6, 0.25, open), 0.6, closeT);
       const baseShift = (1 - zoom) * Hsmall * shiftK * shiftFactor;
+      const zPush = lerp(D * 0.35, D, zoom);
 
       laptop.style.transform =
-        `translate3d(0, ${baseShift}px, 0) scale(${s}) rotateX(${tilt}deg) translateZ(${D}px)`;
+        `translate3d(0, ${baseShift}px, 0) scale(${s}) rotateX(${tilt}deg) translateZ(${zPush}px)`;
 
       // Мягкое свечение экрана на клавиатуру только когда ноутбук открыт
       const screenLit = open * (1 - zoom) * (1 - closeT);
