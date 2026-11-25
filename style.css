@@ -163,7 +163,7 @@ ul, ol { list-style: none; }
 }
 .k {
   flex: 1;
-  border-radius: 6px;
+  border-radius: clamp(2px, 0.5vw, 6px);
   background: linear-gradient(180deg, #25252b 0%, #1c1c21 100%);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.09) inset,
@@ -454,15 +454,19 @@ ul, ol { list-style: none; }
 
 /* узкий экран (телефон): компактная вёрстка внутри ноутбука */
 .page.narrow .page-inner { padding: 0 20px 100px; }
-.page.narrow .p-sec { padding: 52px 0 12px; }
-.page.narrow .p-hero { padding-top: 64px; }
-.page.narrow .p-facts { grid-template-columns: 1fr; margin-top: 32px; }
-.page.narrow .p-grid { grid-template-columns: 1fr; }
-.page.narrow .p-card { min-height: 0; padding: 22px; }
-.page.narrow .p-steps li { padding: 20px 22px; gap: 16px; }
+.page.narrow .p-sec { padding: 48px 0 12px; }
+.page.narrow .p-hero { padding-top: 56px; }
+.page.narrow .p-hero h2 { font-size: clamp(26px, 7.2vw, 36px); }
+.page.narrow .p-hero > p { font-size: clamp(15px, 4vw, 18px); margin-top: 16px; }
+.page.narrow .p-head h3 { font-size: clamp(24px, 6.2vw, 32px); }
+.page.narrow .p-facts { grid-template-columns: 1fr; margin-top: 26px; gap: 10px; }
+.page.narrow .p-facts li { padding: 16px 18px; }
+.page.narrow .p-grid { grid-template-columns: 1fr; gap: 12px; }
+.page.narrow .p-card { min-height: 0; padding: 20px; }
+.page.narrow .p-steps li { padding: 18px 20px; gap: 14px; }
 .page.narrow .p-case { grid-template-columns: 1fr; }
 .page.narrow .p-case-img { aspect-ratio: 16 / 10; }
-.page.narrow .p-case-body { padding: 24px; }
+.page.narrow .p-case-body { padding: 22px; }
 
 /* ПРЕДЛОЖЕНИЕ / КОНТАКТЫ */
 .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }

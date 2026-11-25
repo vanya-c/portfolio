@@ -21,31 +21,31 @@
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const narrow = vw < 800;
-    const ratio = narrow ? vw / vh : 1.6;
+    const ratio = 1.6; // Всегда настоящие пропорции MacBook 16:10 (и на телефоне, и на ПК)
     const bRatio = narrow ? 0.022 : 0.012;
 
     // Видимый размер ноутбука в отдалённом состоянии (с аккуратными полями по бокам)
-    const Wsmall = narrow ? vw * 0.76 : Math.min(vw * 0.52, vh * 0.68 * 1.6, 820);
+    const Wsmall = narrow ? vw * 0.88 : Math.min(vw * 0.52, vh * 0.68 * 1.6, 820);
     const Hsmall = Wsmall / ratio;
-    const gWsmall = Wsmall * (1 - 2 * bRatio);
 
     // Полный нативный размер ноутбука, при котором стекло = 100% ширины окна (scale = 1, 0 апскейла)
     const gW = vw;
     const W = gW / (1 - 2 * bRatio);
     const b = (W - gW) / 2;
-    const H = Math.max(W / ratio, vh + 2 * b);
-    const gH = H - 2 * b;
-    const D = H;
-    const minScale = gWsmall / gW;
+    const Hmac = W / ratio;
+    const Hfull = Math.max(Hmac, vh + 2 * b);
+    const gHfull = Hfull - 2 * b;
+    const D = Hmac;
+    const minScale = Wsmall / W;
     // Объёмная толщина корпуса и крышки MacBook
-    const Tb = Math.max(22, H * 0.036);
-    const Tl = Math.max(10, H * 0.016);
+    const Tb = Math.max(narrow ? 18 : 22, Hmac * 0.038);
+    const Tl = Math.max(narrow ? 8 : 10, Hmac * 0.017);
 
-    Object.assign(m, { vw, vh, narrow, W, H, b, D, gW, gH, Hsmall, minScale });
+    Object.assign(m, { vw, vh, narrow, W, b, D, Hmac, Hfull, Hsmall, minScale });
 
     const s = laptop.style;
     s.setProperty('--W', W + 'px');
-    s.setProperty('--H', H + 'px');
+    s.setProperty('--H', Hmac + 'px');
     s.setProperty('--D', D + 'px');
     s.setProperty('--b', b + 'px');
     s.setProperty('--Tb', Tb + 'px');
@@ -53,14 +53,14 @@
     page.classList.toggle('narrow', narrow);
 
     m.contentH = page.offsetHeight;
-    // Видимая высота экрана в полном зуме равна min(gH, vh)
-    const visibleH = Math.min(gH, vh);
-    m.topOffset = Math.max(0, (gH - vh) / 2);
+    // Видимая высота экрана в полном зуме равна min(gHfull, vh)
+    const visibleH = Math.min(gHfull, vh);
+    m.topOffset = Math.max(0, (gHfull - vh) / 2);
     m.maxScroll = Math.max(0, m.contentH - visibleH);
   }
 
   function render(p) {
-    const { D, Hsmall, minScale, narrow, topOffset, maxScroll } = m;
+    const { D, Hmac, Hfull, Hsmall, minScale, narrow, topOffset, maxScroll } = m;
 
     // Симметричные и плавные фазы
     const open = seg(p, 0.02, 0.18);        // крышка открывается
@@ -71,6 +71,10 @@
 
     const zoom = zoomIn * (1 - zoomOut);
     const isFlat = zoom > 0.999;
+
+    // На телефоне экран плавно раскрывается по высоте от 16:10 MacBook до высоты экрана при зуме
+    const curH = lerp(Hmac, Hfull, zoom);
+    laptop.style.setProperty('--H', curH + 'px');
 
     camera.classList.toggle('is-flat', isFlat);
     laptop.classList.toggle('is-flat', isFlat);
@@ -97,7 +101,7 @@
 
       // Камера: уменьшение от 1 к minScale (никогда не увеличивает растр выше 1:1)
       const s = lerp(minScale, 1, zoom);
-      const shiftK = narrow ? 0.04 : 0.06;
+      const shiftK = narrow ? 0.08 : 0.06;
       const shiftFactor = lerp(lerp(0.6, 0.25, open), 0.6, closeT);
       const baseShift = (1 - zoom) * Hsmall * shiftK * shiftFactor;
       const zPush = lerp(D * 0.35, D, zoom);
