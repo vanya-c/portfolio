@@ -35,8 +35,11 @@
     const b = (W - gW) / 2;
     const H = Math.max(W / ratio, vh + 2 * b);
     const gH = H - 2 * b;
-    const D = H * 0.96;
+    const D = H;
     const minScale = gWsmall / gW;
+    // Объёмная толщина корпуса и крышки MacBook
+    const Tb = Math.max(22, H * 0.036);
+    const Tl = Math.max(10, H * 0.016);
 
     Object.assign(m, { vw, vh, narrow, W, H, b, D, gW, gH, Hsmall, minScale });
 
@@ -45,6 +48,8 @@
     s.setProperty('--H', H + 'px');
     s.setProperty('--D', D + 'px');
     s.setProperty('--b', b + 'px');
+    s.setProperty('--Tb', Tb + 'px');
+    s.setProperty('--Tl', Tl + 'px');
     page.classList.toggle('narrow', narrow);
 
     m.contentH = page.offsetHeight;
@@ -76,34 +81,32 @@
       lid.style.transform = 'none';
       glowFloor.style.opacity = '0';
     } else {
-      // Угол крышки: 84° -> -6° (открыт) -> 0° (в зуме) -> снова -6° -> 84° (закрыт)
-      const openAngle = lerp(84, -6, open);
-      const closedAngle = lerp(openAngle, 84, closeT);
+      // Угол крышки: 90° (полностью закрыт) -> -6° (открыт) -> 0° (в зуме) -> снова -6° -> 90° (полностью закрыт)
+      const openAngle = lerp(90, -6, open);
+      const closedAngle = lerp(openAngle, 90, closeT);
       const angle = lerp(closedAngle, 0, zoom);
 
-      const tiltOpen = lerp(16, 13, open);
-      const tilt = lerp(lerp(tiltOpen, 16, closeT), 0, zoom);
+      // Лёгкий ракурс сверху, чтобы у закрытого мака был чётко виден объём и передняя грань
+      const tiltOpen = lerp(22, 14, open);
+      const tilt = lerp(lerp(tiltOpen, 22, closeT), 0, zoom);
 
-      // Плавный подъём крышки над основанием без рывков
+      // Минимальный зазор 1px при закрытии только против z-fighting
       const liftFactor = lerp(lerp(1, 0, open), 1, closeT);
-      const lift = (liftFactor * 2) / minScale;
+      const lift = (liftFactor * 1) / minScale;
       lid.style.transform = `translate3d(0, ${-lift}px, ${-D}px) rotateX(${-angle}deg)`;
 
       // Камера: уменьшение от 1 к minScale (никогда не увеличивает растр выше 1:1)
       const s = lerp(minScale, 1, zoom);
-      const shiftK = narrow ? 0.09 : 0.18;
-      const shiftFactor = lerp(lerp(1, 0.5, open), 1, closeT);
+      const shiftK = narrow ? 0.08 : 0.14;
+      const shiftFactor = lerp(lerp(0.85, 0.45, open), 0.85, closeT);
       const baseShift = (1 - zoom) * Hsmall * shiftK * shiftFactor;
 
       laptop.style.transform =
         `translate3d(0, ${baseShift}px, 0) scale(${s}) rotateX(${tilt}deg) translateZ(${D}px)`;
 
-      // Мягкое свечение из щели
-      const ajar = Math.max(1 - open * 1.4, 0);
-      const closingFade = 1 - closeT * closeT;
-      glowFloor.style.opacity = String(
-        Math.min(1, ajar * 0.85 + open * (1 - zoom) * 0.22 * (1 - closeT)) * closingFade
-      );
+      // Мягкое свечение экрана на клавиатуру только когда ноутбук открыт
+      const screenLit = open * (1 - zoom) * (1 - closeT);
+      glowFloor.style.opacity = String(screenLit * 0.28);
     }
 
     // Заголовок на старте

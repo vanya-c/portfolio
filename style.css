@@ -94,23 +94,187 @@ ul, ol { list-style: none; }
   transform-style: flat;
 }
 
-/* Нижняя часть — чистый алюминий, ничего лишнего */
+/* Объёмная нижняя часть MacBook с клавиатурой и тачпадом */
 .base {
   pointer-events: none;
   position: absolute; left: 0; bottom: 0;
   width: var(--W); height: var(--D);
   transform-origin: 50% 100%;
   transform: rotateX(90deg);
-  border-radius: 10px 10px 36px 36px;
-  background: linear-gradient(180deg, #3a3a40 0%, #2b2b30 55%, #242428 100%);
-  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.12) inset;
+  transform-style: preserve-3d;
+}
+.base-top {
+  position: absolute; inset: 0;
+  border-radius: 14px 14px 32px 32px;
+  background: linear-gradient(180deg, #34343a 0%, #2a2a30 48%, #242429 100%);
+  box-shadow:
+    0 0 0 1.5px rgba(255, 255, 255, 0.14) inset,
+    0 12px 32px rgba(0, 0, 0, 0.28) inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.2% 4.2% 3.6%;
+  overflow: hidden;
+}
+.base-hinge {
+  width: 68%;
+  height: 2.8%;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg, #0b0b0e, #18181d);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+  margin-bottom: 3.4%;
+}
+.base-deck {
+  width: 100%;
+  flex: 0 0 49%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 2.2%;
+}
+.speaker {
+  flex: 0 0 6.2%;
+  border-radius: 10px;
+  background-image: radial-gradient(rgba(8, 8, 12, 0.72) 1.3px, transparent 1.5px);
+  background-size: 7px 7px;
+  opacity: 0.72;
+  margin: 0.6% 0;
+}
+.keyboard {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.4%;
+  padding: 1.4% 1.5%;
+  border-radius: 14px;
+  background: #141418;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.55) inset,
+    0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.kb-row {
+  flex: 1;
+  display: flex;
+  gap: 0.85%;
+  align-items: stretch;
+}
+.kb-fn {
+  flex: 0.62;
+}
+.k {
+  flex: 1;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #25252b 0%, #1c1c21 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.09) inset,
+    0 2px 3px rgba(0, 0, 0, 0.55);
+}
+.k.w-11 { flex: 1.1; }
+.k.w-13 { flex: 1.3; }
+.k.w-15 { flex: 1.55; }
+.k.w-16 { flex: 1.65; }
+.k.w-18 { flex: 1.85; }
+.k.w-23 { flex: 2.35; }
+.k.w-space { flex: 5.2; }
+.k.k-power {
+  position: relative;
+}
+.k.k-power::after {
+  content: '';
+  position: absolute;
+  inset: 22% 26%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+}
+.k-arrows {
+  flex: 3.1;
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5%;
+}
+.k-arrows > .k-half {
+  flex: 1;
+  height: 46%;
+}
+.k-arrows-mid {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8%;
+}
+.k-arrows-mid .k-half {
+  flex: 1;
+}
+
+.trackpad {
+  width: 36%;
+  flex: 1 1 auto;
+  margin-top: 3.2%;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.06));
+  border: 1.5px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 1px 6px rgba(0, 0, 0, 0.22) inset,
+    0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* 3D-бортики основания (толщина корпуса MacBook) */
+.base-front {
+  position: absolute; left: 0; top: 100%;
+  width: 100%; height: var(--Tb);
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
+  border-radius: 0 0 18px 18px;
+  background: linear-gradient(180deg, #4b4b53 0%, #34343b 42%, #202025 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.6) inset;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.base-scoop {
+  width: 13%;
+  height: 46%;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(180deg, #16161a 0%, #27272d 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.65) inset;
+}
+.base-back {
+  position: absolute; left: 0; bottom: 100%;
+  width: 100%; height: var(--Tb);
+  transform-origin: 50% 100%;
+  transform: rotateX(90deg);
+  background: linear-gradient(180deg, #2b2b31, #1b1b20);
+}
+.base-left {
+  position: absolute; left: 0; top: 0;
+  width: var(--Tb); height: 100%;
+  transform-origin: 0% 50%;
+  transform: rotateY(90deg);
+  background: linear-gradient(90deg, #222227, #383840 45%, #27272d);
+}
+.base-right {
+  position: absolute; right: 0; top: 0;
+  width: var(--Tb); height: 100%;
+  transform-origin: 100% 50%;
+  transform: rotateY(-90deg);
+  background: linear-gradient(270deg, #222227, #383840 45%, #27272d);
+}
+.base-bottom {
+  position: absolute; inset: 0;
+  border-radius: 14px 14px 32px 32px;
+  background: #141418;
+  transform: translateZ(calc(var(--Tb) * -1));
+  box-shadow: 0 42px 90px rgba(0, 0, 0, 0.85);
 }
 
 .glow-floor {
   position: absolute; left: -6%; bottom: 0; width: 112%; height: var(--D);
   transform-origin: 50% 100%;
   transform: rotateX(90deg) translateZ(1px);
-  background: radial-gradient(ellipse at 50% 8%, rgba(235, 240, 255, 0.45), rgba(235, 240, 255, 0.08) 45%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 8%, rgba(235, 240, 255, 0.35), rgba(235, 240, 255, 0.06) 45%, transparent 70%);
   opacity: 0; pointer-events: none;
 }
 
@@ -125,7 +289,8 @@ ul, ol { list-style: none; }
 }
 .laptop.is-flat .base,
 .laptop.is-flat .glow-floor,
-.laptop.is-flat .lid-back {
+.laptop.is-flat .lid-back,
+.laptop.is-flat .lid-edge {
   visibility: hidden;
 }
 
@@ -139,12 +304,41 @@ ul, ol { list-style: none; }
   padding: var(--b);
   box-shadow: 0 0 0 2px #3a3a40 inset;
 }
-/* Внешняя сторона крышки — гладкий алюминий */
+/* Внешняя сторона крышки — объёмный гладкий алюминий */
 .lid-back {
   pointer-events: none;
-  transform: rotateY(180deg);
-  background: linear-gradient(160deg, #3c3c42, #2a2a2f 60%, #323237);
-  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.1) inset;
+  transform: translateZ(calc(var(--Tl) * -1)) rotateY(180deg);
+  background: linear-gradient(155deg, #43434b 0%, #2f2f36 52%, #393941 100%);
+  box-shadow:
+    0 0 0 1.5px rgba(255, 255, 255, 0.14) inset,
+    0 -14px 40px rgba(0, 0, 0, 0.25) inset;
+}
+.lid-edge {
+  pointer-events: none;
+  position: absolute;
+}
+.lid-top-edge {
+  left: 0; top: 0;
+  width: 100%; height: var(--Tl);
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(180deg, #52525b 0%, #37373f 60%, #2a2a30 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+}
+.lid-left-edge {
+  left: 0; top: 0;
+  width: var(--Tl); height: 100%;
+  transform-origin: 0% 50%;
+  transform: rotateY(90deg);
+  background: linear-gradient(90deg, #2d2d34, #45454e 50%, #2d2d34);
+}
+.lid-right-edge {
+  right: 0; top: 0;
+  width: var(--Tl); height: 100%;
+  transform-origin: 100% 50%;
+  transform: rotateY(-90deg);
+  background: linear-gradient(270deg, #2d2d34, #45454e 50%, #2d2d34);
 }
 .bezel { position: relative; width: 100%; height: 100%; }
 .notch {
