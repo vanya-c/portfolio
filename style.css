@@ -105,7 +105,7 @@ ul, ol { list-style: none; }
 }
 .base-top {
   position: absolute; inset: 0;
-  border-radius: 14px 14px 32px 32px;
+  border-radius: clamp(14px, 1.8vw, 22px) clamp(14px, 1.8vw, 22px) clamp(24px, 3vw, 38px) clamp(24px, 3vw, 38px);
   background: linear-gradient(180deg, #34343a 0%, #2a2a30 48%, #242429 100%);
   box-shadow:
     0 0 0 1.5px rgba(255, 255, 255, 0.14) inset,
@@ -219,10 +219,10 @@ ul, ol { list-style: none; }
     0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-/* 3D-бортики основания (толщина корпуса MacBook) */
+/* 3D-бортики основания (толщина корпуса MacBook без острых углов) */
 .base-front {
-  position: absolute; left: 0; top: 100%;
-  width: 100%; height: var(--Tb);
+  position: absolute; left: 4.5%; right: 4.5%; top: 100%;
+  height: var(--Tb);
   transform-origin: 50% 0%;
   transform: rotateX(-90deg);
   border-radius: 0 0 18px 18px;
@@ -235,36 +235,36 @@ ul, ol { list-style: none; }
   align-items: flex-start;
 }
 .base-scoop {
-  width: 13%;
+  width: 14%;
   height: 46%;
   border-radius: 0 0 999px 999px;
   background: linear-gradient(180deg, #16161a 0%, #27272d 100%);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.65) inset;
 }
 .base-back {
-  position: absolute; left: 0; bottom: 100%;
-  width: 100%; height: var(--Tb);
+  position: absolute; left: 3%; right: 3%; bottom: 100%;
+  height: var(--Tb);
   transform-origin: 50% 100%;
   transform: rotateX(90deg);
   background: linear-gradient(180deg, #2b2b31, #1b1b20);
 }
 .base-left {
-  position: absolute; left: 0; top: 0;
-  width: var(--Tb); height: 100%;
+  position: absolute; left: 0; top: 4%; bottom: 7%;
+  width: var(--Tb);
   transform-origin: 0% 50%;
   transform: rotateY(90deg);
   background: linear-gradient(90deg, #222227, #383840 45%, #27272d);
 }
 .base-right {
-  position: absolute; right: 0; top: 0;
-  width: var(--Tb); height: 100%;
+  position: absolute; right: 0; top: 4%; bottom: 7%;
+  width: var(--Tb);
   transform-origin: 100% 50%;
   transform: rotateY(-90deg);
   background: linear-gradient(270deg, #222227, #383840 45%, #27272d);
 }
 .base-bottom {
   position: absolute; inset: 0;
-  border-radius: 14px 14px 32px 32px;
+  border-radius: clamp(14px, 1.8vw, 22px) clamp(14px, 1.8vw, 22px) clamp(24px, 3vw, 38px) clamp(24px, 3vw, 38px);
   background: #141418;
   transform: translateZ(calc(var(--Tb) * -1));
   box-shadow: 0 42px 90px rgba(0, 0, 0, 0.85);
@@ -297,7 +297,7 @@ ul, ol { list-style: none; }
 .lid-front, .lid-back {
   position: absolute; inset: 0;
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  border-radius: 22px;
+  border-radius: clamp(18px, 2.2vw, 28px);
 }
 .lid-front {
   background: #060608;
@@ -318,24 +318,24 @@ ul, ol { list-style: none; }
   position: absolute;
 }
 .lid-top-edge {
-  left: 0; top: 0;
-  width: 100%; height: var(--Tl);
+  left: 3.5%; right: 3.5%; top: 0;
+  height: var(--Tl);
   transform-origin: 50% 0%;
   transform: rotateX(-90deg);
-  border-radius: 12px 12px 0 0;
+  border-radius: 10px 10px 0 0;
   background: linear-gradient(180deg, #52525b 0%, #37373f 60%, #2a2a30 100%);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
 }
 .lid-left-edge {
-  left: 0; top: 0;
-  width: var(--Tl); height: 100%;
+  left: 0; top: 5%; bottom: 4%;
+  width: var(--Tl);
   transform-origin: 0% 50%;
   transform: rotateY(90deg);
   background: linear-gradient(90deg, #2d2d34, #45454e 50%, #2d2d34);
 }
 .lid-right-edge {
-  right: 0; top: 0;
-  width: var(--Tl); height: 100%;
+  right: 0; top: 5%; bottom: 4%;
+  width: var(--Tl);
   transform-origin: 100% 50%;
   transform: rotateY(-90deg);
   background: linear-gradient(270deg, #2d2d34, #45454e 50%, #2d2d34);
