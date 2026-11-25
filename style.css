@@ -475,8 +475,17 @@ ul, ol { list-style: none; }
 .p-case-body em { font-style: normal; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .p-case-body h4 { font-size: clamp(24px, 2.3vw, 34px); line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
 .p-case-body p { color: var(--muted); font-size: clamp(14px, 1.15vw, 16px); line-height: 1.58; }
+.p-case-foot {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin-top: 6px;
+}
+.p-case-price {
+  font-size: clamp(16px, 1.3vw, 20px); font-weight: 700; color: var(--text);
+  padding: 10px 18px; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: rgba(255, 255, 255, 0.04);
+}
 .p-link {
-  align-self: flex-start; margin-top: 6px; padding: 13px 24px; border-radius: 999px;
+  align-self: flex-start; padding: 13px 24px; border-radius: 999px;
   background: var(--text); color: var(--ink); font-weight: 600; font-size: 15px;
   transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
 }
