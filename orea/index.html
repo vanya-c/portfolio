@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ORÉA — Crème Cellulaire № 01</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-CVjJVrYw.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-eEKFpW8S.css">
+  </head>
+  <body>
+    <!-- Fixed WebGL canvas for the 3D cream jar -->
+    <canvas id="jar-canvas" aria-label="Интерактивная 3D модель крема ORÉA № 01"></canvas>
+
+    <!-- Minimal Editorial Header -->
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a href="#top" class="brand-mark">
+          <span class="brand-name">ORÉA</span>
+          <span class="brand-sub">LAB · № 01</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Навигация">
+          <a href="#formula">Формула</a>
+          <a href="#ingredients">Компоненты</a>
+          <a href="#ritual">Ритуал</a>
+          <a href="#order">Заказ</a>
+        </nav>
+
+        <button class="cart-trigger" id="cart-open-btn" type="button">
+          <span>Корзина</span>
+          <span class="cart-count" id="header-cart-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO SECTION -->
+      <section class="hero" id="hero">
+        <div class="hero-grid">
+          <!-- Left column: Dedicated stage for the 3D cream jar + editorial title -->
+          <div class="hero-left">
+            <div class="hero-kicker">
+              <span class="ochre-dot"></span>
+              <span>КЛЕТОЧНЫЙ УХОД ДЛЯ ЛИЦА</span>
+            </div>
+
+            <h1 class="hero-title">
+              Чистая форма<br />
+              <em>живой кожи</em>
+            </h1>
+
+            <!-- Open visual stage where the 3D jar sits -->
+            <div class="hero-jar-stage" id="hero-jar-stage" aria-hidden="true"></div>
+
+            <div class="hero-bottom-meta">
+              <div class="glass-card hero-spec-card">
+                <div class="spec-row">
+                  <span class="spec-label">ФОРМУЛА</span>
+                  <span class="spec-value">Crème № 01</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-row">
+                  <span class="spec-label">ОБЪЁМ</span>
+                  <span class="spec-value">50 мл</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-row">
+                  <span class="spec-label">pH БАЛАНС</span>
+                  <span class="spec-value">5.4</span>
+                </div>
+              </div>
+
+              <div class="scroll-cue">
+                <span class="scroll-cue-line"></span>
+                <span class="scroll-cue-text">Листайте вниз, чтобы открыть крем</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: 5 Models editorial campaign image -->
+          <div class="hero-right">
+            <figure class="hero-visual">
+              <img
+                src="./images/hero-models.jpg"
+                alt="Пять моделей кампании ORÉA в минималистичных образах кремового оттенка"
+                class="hero-models-img"
+                id="hero-models-img"
+              />
+              <figcaption class="glass-card hero-caption-card">
+                <span class="caption-index">КАМПАНИЯ · 01</span>
+                <p>
+                  Пять типов кожи, одна формула. Естественный ровный тон и глубокое восстановление без
+                  тяжести и искусственного блеска.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCROLLYTELLING SECTION: 3D Jar rotates, opens, cream emerges with ingredients -->
+      <section class="jar-story" id="formula">
+        <div class="jar-story-sticky">
+          <!-- Subtle editorial progress bar on left edge -->
+          <aside class="story-rail" aria-hidden="true">
+            <div class="rail-step is-active" data-step="0">01</div>
+            <div class="rail-track"><div class="rail-fill" id="story-rail-fill"></div></div>
+            <div class="rail-step" data-step="1">02</div>
+            <div class="rail-step" data-step="2">03</div>
+          </aside>
+
+          <!-- Phase 1: Rotation & Philosophy -->
+          <div class="story-layer story-layer--intro" id="story-phase-1">
+            <div class="story-side story-side--left">
+              <span class="editorial-tag">01 / СОСУД И ФОРМУЛА</span>
+              <h2 class="story-heading">
+                Плотная текстура,<br />
+                <em>тающая от тепла</em>
+              </h2>
+            </div>
+
+            <div class="story-side story-side--right">
+              <article class="glass-card story-card">
+                <span class="card-index">АРХИТЕКТУРА УХОДА</span>
+                <p>
+                  Тяжёлое матовое стекло цвета слоновой кости защищает активные липиды и пептиды от
+                  света. Внутри — сбалансированная эмульсия, повторяющая строение рогового слоя кожи.
+                </p>
+                <div class="card-meta-line">
+                  <span>Без силиконов</span>
+                  <span>·</span>
+                  <span>Без синтетических отдушек</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Phase 2: Lid unscrewing -->
+          <div class="story-layer story-layer--open" id="story-phase-2">
+            <div class="story-side story-side--left">
+              <article class="glass-card story-card">
+                <span class="card-index">02 / МОМЕНТ ОТКРЫТИЯ</span>
+                <h3 class="card-title">Медленное раскрытие активов</h3>
+                <p>
+                  Крышка из анодированного чёрного металла и тёмной латуни герметично сохраняет
+                  свежесть масел облепихи и ши до последнего прикосновения.
+                </p>
+              </article>
+            </div>
+
+            <div class="story-side story-side--right">
+              <div class="story-note">
+                <span class="ochre-num">98.4%</span>
+                <p>компонентов натурального и биотехнологического происхождения</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 3: Cream emerges & 5 Transparent Ingredient Cards -->
+          <div class="story-layer story-layer--ingredients" id="story-phase-3">
+            <div class="ingredients-header" id="ingredients">
+              <span class="editorial-tag">03 / ЧТО ВНУТРИ КРЕМА</span>
+              <h2 class="ingredients-title">Активные компоненты <em>для лица</em></h2>
+            </div>
+
+            <div class="ingredients-constellation">
+              <article class="glass-card ingredient-card ingredient-card--1">
+                <div class="ingredient-head">
+                  <span class="ingredient-num">01</span>
+                  <span class="ingredient-conc">5.0%</span>
+                </div>
+                <h3>Ниацинамид</h3>
+                <p>
+                  Выравнивает оттенок кожи, уменьшает видимость пор и укрепляет естественный барьер
+                  против городской среды.
+                </p>
+              </article>
+
+              <article class="glass-card ingredient-card ingredient-card--2">
+                <div class="ingredient-head">
+                  <span class="ingredient-num">02</span>
+                  <span class="ingredient-conc">NP · AP · EOP</span>
+                </div>
+                <h3>Комплекс керамидов</h3>
+                <p>
+                  Восстанавливает липидную мантию, устраняет сухость и удерживает глубокую влагу до
+                  48 часов.
+                </p>
+              </article>
+
+              <article class="glass-card ingredient-card ingredient-card--3">
+                <div class="ingredient-head">
+                  <span class="ingredient-num">03</span>
+                  <span class="ingredient-conc">БИО-СКВАЛАН</span>
+                </div>
+                <h3>Сквалан оливы</h3>
+                <p>
+                  Мгновенно смягчает кожу без жирной плёнки, возвращает упругость и спокойный
+                  бархатистый финиш.
+                </p>
+              </article>
+
+              <article class="glass-card ingredient-card ingredient-card--4">
+                <div class="ingredient-head">
+                  <span class="ingredient-num">04</span>
+                  <span class="ingredient-conc">ТРИПЕПТИД</span>
+                </div>
+                <h3>Пептидный комплекс</h3>
+                <p>
+                  Поддерживает синтез собственного коллагена, делает рельеф кожи заметно более
+                  гладким и плотным.
+                </p>
+              </article>
+
+              <article class="glass-card ingredient-card ingredient-card--5">
+                <div class="ingredient-head">
+                  <span class="ingredient-num">05</span>
+                  <span class="ingredient-conc">ХОЛОДНЫЙ ОТЖИМ</span>
+                </div>
+                <h3>Масло облепихи и ши</h3>
+                <p>
+                  Источник каротиноидов и жирных кислот: снимает покраснения и дарит мягкое тёплое
+                  сияние.
+                </p>
+              </article>
+            </div>
+
+            <div class="ingredients-mobile-nav" id="ingredients-mobile-nav" aria-label="Компоненты">
+              <button type="button" class="ing-dot is-active" data-ing="0">01</button>
+              <button type="button" class="ing-dot" data-ing="1">02</button>
+              <button type="button" class="ing-dot" data-ing="2">03</button>
+              <button type="button" class="ing-dot" data-ing="3">04</button>
+              <button type="button" class="ing-dot" data-ing="4">05</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLINICAL & RITUAL SECTION -->
+      <section class="ritual-section" id="ritual">
+        <div class="section-container">
+          <div class="section-header-row">
+            <div>
+              <span class="editorial-tag">04 / РИТУАЛ И РЕЗУЛЬТАТ</span>
+              <h2 class="section-title">
+                Спокойствие кожи<br />
+                <em>утром и вечером</em>
+              </h2>
+            </div>
+            <p class="section-lead">
+              Формула разработана для ежедневного применения на сухой, чувствительной и
+              комбинированной коже. Быстро впитывается и служит чистой базой под макияж.
+            </p>
+          </div>
+
+          <!-- Transparent editorial metric cards -->
+          <div class="metrics-grid">
+            <article class="glass-card metric-card">
+              <span class="metric-value">94%</span>
+              <p class="metric-label">отметили более ровный тон и мягкость кожи через 14 дней</p>
+            </article>
+            <article class="glass-card metric-card">
+              <span class="metric-value">48 ч</span>
+              <p class="metric-label">поддержания оптимального уровня увлажнённости без стянутости</p>
+            </article>
+            <article class="glass-card metric-card">
+              <span class="metric-value">0%</span>
+              <p class="metric-label">парабенов, минеральных масел, силиконов и резких отдушек</p>
+            </article>
+          </div>
+
+          <!-- 3-step ritual -->
+          <div class="ritual-steps">
+            <article class="glass-card ritual-card">
+              <span class="ritual-num">ШАГ I</span>
+              <h3>Очищение и тепло</h3>
+              <p>
+                Наберите небольшую порцию крема шпателем и слегка разогрейте между подушечками
+                пальцев, чтобы активировать липидную основу.
+              </p>
+            </article>
+            <article class="glass-card ritual-card">
+              <span class="ritual-num">ШАГ II</span>
+              <h3>Мягкое прижатие</h3>
+              <p>
+                Распределите по лицу и шее лёгкими прижимающими движениями от центра к контуру,
+                избегая растяжения кожи.
+              </p>
+            </article>
+            <article class="glass-card ritual-card">
+              <span class="ritual-num">ШАГ III</span>
+              <h3>Защита на весь день</h3>
+              <p>
+                Через две минуты крем оставляет матово-атласный финиш. Утром дополните уход SPF,
+                вечером — нанесите более плотным слоем.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ORDER SECTION -->
+      <section class="order-section" id="order">
+        <div class="section-container order-grid">
+          <div class="order-info">
+            <span class="editorial-tag">05 / КОЛЛЕКЦИЯ</span>
+            <h2 class="section-title">
+              ORÉA Crème<br />
+              <em>Cellulaire № 01</em>
+            </h2>
+            <p class="order-desc">
+              Выпускается малыми партиями. Каждая банка пронумерована вручную и комплектуется
+              керамическим шпателем.
+            </p>
+
+            <ul class="order-details-list">
+              <li><span>Текстура</span><span>Насыщенная, нежирная эмульсия</span></li>
+              <li><span>Аромат</span><span>Едва уловимый природный тон облепихи и льна</span></li>
+              <li><span>Тип кожи</span><span>Все типы, включая чувствительную</span></li>
+              <li><span>Доставка</span><span>Бесплатная курьерская доставка по России</span></li>
+            </ul>
+          </div>
+
+          <div class="glass-card order-card">
+            <div class="format-selector" role="radiogroup" aria-label="Выбор формата">
+              <button
+                type="button"
+                class="format-option is-selected"
+                data-id="jar-50"
+                data-name="ORÉA Crème № 01 (Стеклянная банка, 50 мл)"
+                data-price="6800"
+              >
+                <div class="format-top">
+                  <span class="format-name">Основная банка · 50 мл</span>
+                  <span class="format-price">6 800 ₽</span>
+                </div>
+                <span class="format-sub">Матовое стекло, металлическая крышка и шпатель</span>
+              </button>
+
+              <button
+                type="button"
+                class="format-option"
+                data-id="refill-50"
+                data-name="ORÉA Crème № 01 (Рефил-капсула, 50 мл)"
+                data-price="5200"
+              >
+                <div class="format-top">
+                  <span class="format-name">Сменный рефил · 50 мл</span>
+                  <span class="format-price">5 200 ₽</span>
+                </div>
+                <span class="format-sub">Экологичная сменная капсула для вашей банки ORÉA</span>
+              </button>
+            </div>
+
+            <div class="order-actions">
+              <div class="qty-control" aria-label="Количество">
+                <button type="button" id="qty-minus" aria-label="Уменьшить">−</button>
+                <span id="qty-value">1</span>
+                <button type="button" id="qty-plus" aria-label="Увеличить">+</button>
+              </div>
+              <button type="button" class="primary-btn" id="add-to-cart-btn">
+                Добавить в корзину — <span id="selected-total">6 800 ₽</span>
+              </button>
+            </div>
+
+            <p class="order-note">
+              Отправка в течение 24 часов. Пробник 5 мл вкладывается в каждый первый заказ.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="section-container footer-inner">
+        <div class="footer-brand">
+          <span class="brand-name">ORÉA</span>
+          <p>Лаборатория минималистичного ухода за кожей. Чистые формулы, сдержанная эстетика.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#formula">Формула</a>
+          <a href="#ingredients">Компоненты</a>
+          <a href="#ritual">Ритуал</a>
+          <a href="#order">Заказ</a>
+        </div>
+        <div class="footer-copy">
+          <span>© 2026 ORÉA Skincare Lab</span>
+          <span>care@orea-lab.ru</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SLIDE-OVER CART DRAWER -->
+    <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+      <div class="cart-drawer-head">
+        <h3>Ваш заказ</h3>
+        <button type="button" class="cart-close" id="cart-close-btn" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="cart-drawer-body" id="cart-items-container">
+        <p class="cart-empty">Корзина пока пуста.</p>
+      </div>
+      <div class="cart-drawer-foot">
+        <div class="cart-total-row">
+          <span>Итого</span>
+          <strong id="cart-total-price">0 ₽</strong>
+        </div>
+        <button type="button" class="primary-btn full-width" id="checkout-btn">Оформить заказ</button>
+        <p class="checkout-feedback" id="checkout-feedback" hidden></p>
+      </div>
+    </aside>
+
+  </body>
+</html>
