@@ -1,6 +1,7 @@
 (() => {
   const stage = document.getElementById('stage');
   const intro = document.getElementById('intro');
+  const camera = document.getElementById('camera');
   const laptop = document.getElementById('laptop');
   const lid = document.getElementById('lid');
   const glowFloor = document.getElementById('glowFloor');
@@ -12,82 +13,106 @@
   const ease = (t) => t * t * (3 - 2 * t);
   const seg = (p, a, b) => ease(clamp((p - a) / (b - a), 0, 1));
 
-  const m = {};      // размеры
-  let target = 0;    // целевой прогресс
-  let current = 0;   // сглаженный прогресс
-  let raf = 0;
+  const m = {};
+  let target = 0;
+  let current = 0;
 
   function measure() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const narrow = vw < 800;
-    const ratio = narrow ? 0.62 : 1.6;        // соотношение сторон экрана
-    const W = narrow ? vw * 0.8 : Math.min(vw * 0.6, vh * 0.78 * 1.6, 980);
-    const H = W / ratio;
-    const b = Math.max(6, W * (narrow ? 0.022 : 0.012));
-    const D = H * 0.98;
-    const gW = W - 2 * b;
-    const gH = H - 2 * b;
-    const Vw = narrow ? 520 : 1280;
-    const k = gW / Vw;
-    // масштаб, при котором экран заполняет окно
-    const full = vw / gW;
+    const ratio = narrow ? vw / vh : 1.6;
+    const bRatio = narrow ? 0.022 : 0.012;
 
-    Object.assign(m, { vw, vh, narrow, W, H, b, D, gW, gH, Vw, k, full });
+    // Видимый размер ноутбука в отдалённом состоянии
+    const Wsmall = narrow ? vw * 0.8 : Math.min(vw * 0.6, vh * 0.78 * 1.6, 980);
+    const Hsmall = Wsmall / ratio;
+    const gWsmall = Wsmall * (1 - 2 * bRatio);
+
+    // Полный нативный размер ноутбука, при котором стекло = 100% ширины окна (scale = 1, 0 апскейла)
+    const gW = vw;
+    const W = gW / (1 - 2 * bRatio);
+    const b = (W - gW) / 2;
+    const H = Math.max(W / ratio, vh + 2 * b);
+    const gH = H - 2 * b;
+    const D = H * 0.96;
+    const minScale = gWsmall / gW;
+
+    Object.assign(m, { vw, vh, narrow, W, H, b, D, gW, gH, Hsmall, minScale });
 
     const s = laptop.style;
     s.setProperty('--W', W + 'px');
     s.setProperty('--H', H + 'px');
     s.setProperty('--D', D + 'px');
     s.setProperty('--b', b + 'px');
-    page.style.setProperty('--Vw', Vw + 'px');
     page.classList.toggle('narrow', narrow);
 
-    m.contentH = page.offsetHeight * k;
-    m.maxScroll = Math.max(0, m.contentH - gH);
+    m.contentH = page.offsetHeight;
+    // Видимая высота экрана в полном зуме равна min(gH, vh)
+    const visibleH = Math.min(gH, vh);
+    m.topOffset = Math.max(0, (gH - vh) / 2);
+    m.maxScroll = Math.max(0, m.contentH - visibleH);
   }
 
   function render(p) {
-    const { W, H, D, k, full, narrow } = m;
+    const { D, Hsmall, minScale, narrow, topOffset, maxScroll } = m;
 
-    // Фазы
-    const open = seg(p, 0.02, 0.2);        // крышка открывается
-    const zoomIn = seg(p, 0.2, 0.34);      // камера въезжает в экран
-    const scroll = clamp((p - 0.34) / (0.76 - 0.34), 0, 1);
-    const zoomOut = seg(p, 0.76, 0.87);    // камера выезжает
-    const closeT = seg(p, 0.87, 0.98);     // крышка плавно закрывается
+    // Симметричные и плавные фазы
+    const open = seg(p, 0.02, 0.18);        // крышка открывается
+    const zoomIn = seg(p, 0.18, 0.30);      // камера въезжает в экран
+    const scroll = clamp((p - 0.30) / (0.72 - 0.30), 0, 1);
+    const zoomOut = seg(p, 0.72, 0.84);     // камера плавно выезжает
+    const closeT = seg(p, 0.84, 0.97);      // крышка плавно закрывается
 
     const zoom = zoomIn * (1 - zoomOut);
+    const isFlat = zoom > 0.999;
 
-    // Угол крышки: 84° (чуть приоткрыта) -> -6° (откинута) -> 0° при зуме -> снова 84° при закрытии
-    const openAngle = lerp(84, -6, open);
-    const closedAngle = lerp(openAngle, 84, closeT);
-    const angle = lerp(closedAngle, 0, zoom);
-    const tiltBase = lerp(16, 13, open);
-    const tilt = lerp(lerp(tiltBase, 16, closeT), 0, zoom);
+    camera.classList.toggle('is-flat', isFlat);
+    laptop.classList.toggle('is-flat', isFlat);
 
-    // Крышка (шарнир сзади; пока закрыта — чуть приподнята над основанием)
-    const lift = Math.max(1 - open, closeT) * 2;
-    lid.style.transform = `translate3d(0, ${-lift}px, ${-D}px) rotateX(${-angle}deg)`;
+    if (isFlat) {
+      // Полный зум: чистый 2D без 3D-матриц и апскейла -> идеальная резкость и кликабельные ссылки
+      laptop.style.transform = 'none';
+      lid.style.transform = 'none';
+      glowFloor.style.opacity = '0';
+    } else {
+      // Угол крышки: 84° -> -6° (открыт) -> 0° (в зуме) -> снова -6° -> 84° (закрыт)
+      const openAngle = lerp(84, -6, open);
+      const closedAngle = lerp(openAngle, 84, closeT);
+      const angle = lerp(closedAngle, 0, zoom);
 
-    // Камера
-    const s = lerp(1, full, zoom);
-    const shiftK = narrow ? 0.1 : 0.2;
-    const baseShift = (1 - zoom) * H * shiftK * Math.max(1 - 0.5 * open, closeT);
-    laptop.style.transform =
-      `translate3d(0, ${baseShift}px, 0) scale(${s}) rotateX(${tilt}deg) translateZ(${D}px)`;
+      const tiltOpen = lerp(16, 13, open);
+      const tilt = lerp(lerp(tiltOpen, 16, closeT), 0, zoom);
 
-    // Свечение из щели у почти закрытого ноутбука (в начале и при закрытии)
-    const ajar = Math.max(1 - open * 1.4, 0);
-    const closing = closeT * closeT;
-    glowFloor.style.opacity = String(Math.min(1, ajar * 0.9 + open * (1 - zoom) * 0.25 * (1 - closeT)) * (1 - closing * 0.9));
+      // Плавный подъём крышки над основанием без рывков
+      const liftFactor = lerp(lerp(1, 0, open), 1, closeT);
+      const lift = (liftFactor * 2) / minScale;
+      lid.style.transform = `translate3d(0, ${-lift}px, ${-D}px) rotateX(${-angle}deg)`;
 
-    // Подпись на старте
-    intro.style.opacity = String(1 - seg(p, 0.05, 0.2));
-    intro.style.transform = `translateY(${-seg(p, 0, 0.2) * 30}px)`;
+      // Камера: уменьшение от 1 к minScale (никогда не увеличивает растр выше 1:1)
+      const s = lerp(minScale, 1, zoom);
+      const shiftK = narrow ? 0.09 : 0.18;
+      const shiftFactor = lerp(lerp(1, 0.5, open), 1, closeT);
+      const baseShift = (1 - zoom) * Hsmall * shiftK * shiftFactor;
 
-    // Прокрутка контента внутри экрана
-    page.style.transform = `translateY(${-scroll * m.maxScroll}px) scale(${k})`;
+      laptop.style.transform =
+        `translate3d(0, ${baseShift}px, 0) scale(${s}) rotateX(${tilt}deg) translateZ(${D}px)`;
+
+      // Мягкое свечение из щели
+      const ajar = Math.max(1 - open * 1.4, 0);
+      const closingFade = 1 - closeT * closeT;
+      glowFloor.style.opacity = String(
+        Math.min(1, ajar * 0.85 + open * (1 - zoom) * 0.22 * (1 - closeT)) * closingFade
+      );
+    }
+
+    // Заголовок на старте
+    intro.style.opacity = String(1 - seg(p, 0.04, 0.18));
+    intro.style.transform = `translateY(${-seg(p, 0, 0.18) * 30}px)`;
+
+    // Плавная прокрутка контента внутри экрана
+    const y = topOffset - scroll * maxScroll;
+    page.style.transform = `translate3d(0, ${y}px, 0)`;
   }
 
   function readProgress() {
@@ -101,18 +126,18 @@
   }
 
   function loop() {
-    current = lerp(current, target, 0.14);
-    if (Math.abs(current - target) < 0.0004) current = target;
+    current = lerp(current, target, 0.12);
+    if (Math.abs(current - target) < 0.0003) current = target;
     render(current);
-    raf = requestAnimationFrame(loop);
+    requestAnimationFrame(loop);
   }
 
   window.addEventListener('scroll', readProgress, { passive: true });
   window.addEventListener('resize', () => { measure(); readProgress(); });
-
-  // пересчёт высоты контента после загрузки шрифтов и картинок
   window.addEventListener('load', () => { measure(); readProgress(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measure(); });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { measure(); });
+  }
 
   measure();
   readProgress();
