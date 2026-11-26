@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHER CYBER LOUNGE — Компьютерный клуб нового поколения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;500;600;700;800&family=Press+Start+2P&family=Russo+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-scene="cs">
+
+  <!-- ЗАДНИЙ ФОН: 3D-сцена с моделями персонажей (CS:GO, Minecraft, Dota 2, GTA 6) -->
+  <div class="bg-stage" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-vignette"></div>
+  </div>
+
+  <!-- Навигация -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#hero" class="brand">
+        <span class="brand-mark">◈</span>
+        <span class="brand-text">AETHER<small>CYBER LOUNGE</small></span>
+      </a>
+      <nav class="main-nav">
+        <a href="#halls">Залы и железо</a>
+        <a href="#prices">Все цены</a>
+        <a href="#bar">Бар и девайсы</a>
+        <a href="#booking">Онлайн-запись</a>
+      </nav>
+      <div class="topbar-cta">
+        <span class="status-pill"><i class="pulse"></i> Свободно 38 мест</span>
+        <a href="#booking" class="game-btn btn-cs btn-compact">
+          <span class="btn-icon">⊕</span> Забронировать
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- СЕКЦИЯ 1: HERO (CS:GO 3D Model) -->
+    <section id="hero" class="section hero-section" data-scene="cs">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Мягкий тёмный лаунж для <span>больших побед</span> и отдыха</h1>
+          <p class="hero-lead">
+            72 игровых станции на базе RTX 4080 Super и 4090, OLED-мониторы до 360 Гц, выверенное тёплое освещение без бликов, звукоизолированные буткемпы и кухня ресторанного уровня 24/7.
+          </p>
+
+          <!-- Демонстрация кнопок в стиле 4 игр -->
+          <div class="hero-actions">
+            <a href="#booking" class="game-btn btn-cs">
+              <span class="btn-icon">⌖</span> Занять место (CS Tactical)
+            </a>
+            <a href="#halls" class="game-btn btn-mc">
+              <span class="btn-icon">⛏</span> Обзор залов
+            </a>
+            <a href="#prices" class="game-btn btn-dota">
+              <span class="btn-icon">❖</span> Тарифы и пакеты
+            </a>
+            <a href="#bar" class="game-btn btn-gta">
+              <span class="btn-icon">★</span> Лаунж &amp; Бар
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <strong>72 ПК + PS5</strong>
+              <span>7 тематических зон</span>
+            </div>
+            <div class="metric-card">
+              <strong>360 Гц OLED</strong>
+              <span>отклик 0.03 мс</span>
+            </div>
+            <div class="metric-card">
+              <strong>Пинг от 2 мс</strong>
+              <span>2 независимых канала 10 Гбит</span>
+            </div>
+            <div class="metric-card">
+              <strong>24 / 7</strong>
+              <span>ночные пакеты и кухня</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 2: ЗАЛЫ И ЖЕЛЕЗО (Minecraft 3D Model) -->
+    <section id="halls" class="section" data-scene="mc">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">ЛОКАЦИИ КЛУБА · 7 ЗОН</span>
+            <h2>Выберите свой игровой зал</h2>
+          </div>
+          <p class="section-sub">Каждая зона спроектирована с приглушённым контурным светом, приточной вентиляцией и анатомическими креслами.</p>
+        </div>
+
+        <div class="halls-grid">
+          <article class="hall-card">
+            <div class="hall-top">
+              <span class="hall-tag">30 мест · Общий лаунж</span>
+              <span class="hall-from">от 140 ₽/ч</span>
+            </div>
+            <h3>Comfort Zone</h3>
+            <p class="hall-desc">Просторный зал с мягкой посадкой и широкими столами 140 см для комфортных вечерних сессий.</p>
+            <ul class="spec-list">
+              <li><span>GPU / CPU</span><b>RTX 4060 Ti · Ryzen 5 7600X</b></li>
+              <li><span>Экран</span><b>27" IPS 180 Гц · 1 мс</b></li>
+              <li><span>Девайсы</span><b>Dark Project + Logitech G102 / HyperX</b></li>
+              <li><span>Кресло</span><b>Knight Outrider Soft Fabric</b></li>
+            </ul>
+            <a href="#booking" class="game-btn btn-mc full-w pick-hall" data-hall="comfort">Выбрать Comfort</a>
+          </article>
+
+          <article class="hall-card featured">
+            <div class="hall-top">
+              <span class="hall-tag accent">20 мест · Хит киберспорта</span>
+              <span class="hall-from">от 210 ₽/ч</span>
+            </div>
+            <h3>Cyber Pro 240Hz</h3>
+            <p class="hall-desc">Зона повышенной концентрации с кронштейнами мониторов и топовыми лёгкими беспроводными мышами.</p>
+            <ul class="spec-list">
+              <li><span>GPU / CPU</span><b>RTX 4070 Super · Ryzen 7 7800X3D</b></li>
+              <li><span>Экран</span><b>24.5" Zowie XL2546K 240 Гц DyAc+</b></li>
+              <li><span>Девайсы</span><b>Logitech Superlight · HyperX Cloud II</b></li>
+              <li><span>Кресло</span><b>anda seaT Kaiser 3 Linen</b></li>
+            </ul>
+            <a href="#booking" class="game-btn btn-cs full-w pick-hall" data-hall="pro">Выбрать Cyber Pro</a>
+          </article>
+
+          <article class="hall-card">
+            <div class="hall-top">
+              <span class="hall-tag">10 мест · Премиум зал</span>
+              <span class="hall-from">от 320 ₽/ч</span>
+            </div>
+            <h3>VIP OLED 360Hz</h3>
+            <p class="hall-desc">Приватный тихий зал с OLED-панелями, кнопкой вызова официанта и индивидуальным климат-контролем.</p>
+            <ul class="spec-list">
+              <li><span>GPU / CPU</span><b>RTX 4080 Super · Ryzen 7 9800X3D</b></li>
+              <li><span>Экран</span><b>27" QD-OLED 360 Гц · 2K</b></li>
+              <li><span>Девайсы</span><b>Wooting 60HE + Superlight 2</b></li>
+              <li><span>Кресло</span><b>Secretlab TITAN Evo SoftWeave</b></li>
+            </ul>
+            <a href="#booking" class="game-btn btn-dota full-w pick-hall" data-hall="vip">Выбрать VIP OLED</a>
+          </article>
+
+          <article class="hall-card">
+            <div class="hall-top">
+              <span class="hall-tag">2 комнаты по 5 ПК</span>
+              <span class="hall-from">от 950 ₽/ч за 5 мест</span>
+            </div>
+            <h3>Bootcamp 5×5</h3>
+            <p class="hall-desc">Звукоизолированная командная комната для стаков, праков и турниров с тактической ТВ-панелью 65".</p>
+            <ul class="spec-list">
+              <li><span>GPU / CPU</span><b>5× RTX 4080 · Core i9-14900K</b></li>
+              <li><span>Экран</span><b>24.5" 360 Гц + 65" TV для разбора</b></li>
+              <li><span>Фишки</span><b>Диван отдыха, свой холодильник</b></li>
+              <li><span>Приватность</span><b>Закрывается по смарт-ключу</b></li>
+            </ul>
+            <a href="#booking" class="game-btn btn-cs full-w pick-hall" data-hall="bootcamp">Занять Bootcamp</a>
+          </article>
+
+          <article class="hall-card">
+            <div class="hall-top">
+              <span class="hall-tag">3 уютные комнаты на 2 ПК</span>
+              <span class="hall-from">от 520 ₽/ч за двоих</span>
+            </div>
+            <h3>Duo Private Room</h3>
+            <p class="hall-desc">Камерная комната на двоих с мягким диваном, тёплой подсветкой и флагманской графикой RTX 4090.</p>
+            <ul class="spec-list">
+              <li><span>GPU / CPU</span><b>2× RTX 4090 · Ryzen 9 7950X3D</b></li>
+              <li><span>Экран</span><b>32" 4K OLED 240 Гц</b></li>
+              <li><span>Атмосфера</span><b>Лаунж-свет, акустика + гарнитуры</b></li>
+              <li><span>Сервис</span><b>Подача блюд прямо в комнату</b></li>
+            </ul>
+            <a href="#booking" class="game-btn btn-gta full-w pick-hall" data-hall="duo">Выбрать Duo Room</a>
+          </article>
+
+          <article class="hall-card">
+            <div class="hall-top">
+              <span class="hall-tag">4 диванные ложи + Автосим</span>
+              <span class="hall-from">от 350 ₽/ч</span>
+            </div>
+            <h3>PS5 Pro &amp; SimRacing</h3>
+            <p class="hall-desc">Лаунж-ложи с телевизорами 75" 4K 120 Гц, 4 геймпадами DualSense Edge и кокпиты Moza Direct Drive + VR.</p>
+            <ul class="spec-list">
+              <li><span>Консоли</span><b>PS5 Pro · FC 26, UFC 5, MK1, GTA</b></li>
+              <li><span>Кокпит</span><b>Moza R12 Direct Drive + 49" Ultrawide</b></li>
+              <li><span>VR-зона</span><b>Meta Quest 3 + PCVR Half-Life: Alyx</b></li>
+              <li><span>Посадка</span><b>До 4 гостей в одной ложе без доплат</b></li>
+            </ul>
+            <a href="#booking" class="game-btn btn-gta full-w pick-hall" data-hall="ps5">Выбрать PS5 / Sim</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 3: ВСЕ ВОЗМОЖНЫЕ ЦЕНЫ (Dota 2 3D Model) -->
+    <section id="prices" class="section" data-scene="dota">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">ПОЛНЫЙ ПРАЙС-ЛИСТ БЕЗ СКРЫТЫХ ДОПЛАТ</span>
+            <h2>Все тарифы, пакеты и абонементы</h2>
+          </div>
+
+          <div class="day-switcher" role="tablist" aria-label="День недели">
+            <button type="button" class="switch-btn active" data-daymode="weekday">Пн–Чт (Будни)</button>
+            <button type="button" class="switch-btn" data-daymode="weekend">Пт–Вс и праздники</button>
+          </div>
+        </div>
+
+        <!-- Таблица всех почасовых и пакетных тарифов -->
+        <div class="price-table-card">
+          <div class="table-scroll">
+            <table class="price-table" id="mainPriceTable">
+              <thead>
+                <tr>
+                  <th>Зал / Зона</th>
+                  <th>Утро<small>08:00–13:00 (1 ч)</small></th>
+                  <th>1 час<small>стандарт</small></th>
+                  <th>Пакет 3 ч<small>выгода до 18%</small></th>
+                  <th>Пакет 5 ч<small>выгода до 25%</small></th>
+                  <th>День<small>12:00–18:00 (6 ч)</small></th>
+                  <th>Ночь<small>22:00–08:00 (10 ч)</small></th>
+                  <th>Сутки 24 ч<small>полный безлимит</small></th>
+                </tr>
+              </thead>
+              <tbody id="priceTableBody">
+                <!-- Заполняется скриптом с учётом переключателя Будни / Выходные -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Абонементы и скидки -->
+        <div class="sub-blocks">
+          <div class="sub-panel">
+            <div class="panel-header">
+              <h3>Клубные абонементы (часы не сгорают 60 дней)</h3>
+              <span class="pill-note">Можно делить на несколько сессий</span>
+            </div>
+            <div class="passes-grid">
+              <div class="pass-item">
+                <span class="pass-hours">10 часов</span>
+                <p>Comfort: <b>1 350 ₽</b> · Pro: <b>1 950 ₽</b> · VIP: <b>2 900 ₽</b></p>
+                <small>Экономия 15% от почасового тарифа</small>
+              </div>
+              <div class="pass-item">
+                <span class="pass-hours">25 часов</span>
+                <p>Comfort: <b>3 100 ₽</b> · Pro: <b>4 500 ₽</b> · VIP: <b>6 800 ₽</b></p>
+                <small>Экономия 22% + 1 напиток из бара</small>
+              </div>
+              <div class="pass-item">
+                <span class="pass-hours">50 часов «Киберспорт»</span>
+                <p>Comfort: <b>5 600 ₽</b> · Pro: <b>8 200 ₽</b> · VIP: <b>12 500 ₽</b></p>
+                <small>Экономия 30% + статус Gold (10% кэшбэк)</small>
+              </div>
+              <div class="pass-item">
+                <span class="pass-hours">100 часов «Легенда»</span>
+                <p>Comfort: <b>9 900 ₽</b> · Pro: <b>14 900 ₽</b> · VIP: <b>22 900 ₽</b></p>
+                <small>От 99 ₽/час + заморозка счёта и свой шкафчик</small>
+              </div>
+              <div class="pass-item">
+                <span class="pass-hours">Ночной проездной (10 ночей)</span>
+                <p>Comfort: <b>5 400 ₽</b> · Pro: <b>7 900 ₽</b> · VIP: <b>11 900 ₽</b></p>
+                <small>Любые 10 ночей в течение 45 дней</small>
+              </div>
+              <div class="pass-item">
+                <span class="pass-hours">Аренда всего клуба / Турнир</span>
+                <p>Вечер (5 ч): <b>от 29 000 ₽</b> · Ночь: <b>от 39 000 ₽</b></p>
+                <small>Судья, стрим-студия, ведущий и банкетное меню</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-panel">
+            <div class="panel-header">
+              <h3>Акции, бонусы и программа лояльности</h3>
+              <span class="pill-note">Промокоды работают при онлайн-записи</span>
+            </div>
+            <div class="promos-list">
+              <div class="promo-row">
+                <div>
+                  <b>Первый визит — удвоение пополнения</b>
+                  <span>Пополните баланс от 300 ₽ и получите столько же бонусами (промокод <code>FIRST</code> — скидка 20%).</span>
+                </div>
+                <span class="promo-badge">×2 баланс</span>
+              </div>
+              <div class="promo-row">
+                <div>
+                  <b>Школьникам и студентам −20%</b>
+                  <span>Пн–Пт с 08:00 до 17:00 во всех залах при предъявлении студенческого (промокод <code>STUDENT</code>).</span>
+                </div>
+                <span class="promo-badge">−20%</span>
+              </div>
+              <div class="promo-row">
+                <div>
+                  <b>Именинникам — 3 часа в подарок</b>
+                  <span>Действует в день рождения, а также 3 дня до и 3 дня после (или −25% на Bootcamp для компании).</span>
+                </div>
+                <span class="promo-badge">+3 часа</span>
+              </div>
+              <div class="promo-row">
+                <div>
+                  <b>Накопительный кэшбэк до 15%</b>
+                  <span>Bronze (5% со старта) → Silver (8% от 5 000 ₽) → Gold (12% от 15 000 ₽) → Immortal (15%).</span>
+                </div>
+                <span class="promo-badge">до 15%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 3.5: БАР, ЕДА И ДОП. ДЕВАЙСЫ -->
+    <section id="bar" class="section compact-section" data-scene="dota">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">ЛАУНЖ-КУХНЯ И ПРОКАТ ДЕВАЙСОВ</span>
+            <h2>Еда, напитки и дополнительные услуги</h2>
+          </div>
+          <p class="section-sub">Заказывайте прямо с рабочего стола через клубный лаунчер — принесём за 7–12 минут, не отвлекая от раунда.</p>
+        </div>
+
+        <div class="bar-grid">
+          <div class="menu-card">
+            <h3>Горячая кухня и комбо</h3>
+            <ul>
+              <li><span>Комбо «Ночной Раш» (бургер + фри + энергетик)</span><b>590 ₽</b></li>
+              <li><span>Комбо «Дуо Катка» (пицца 30 см + 2 лимонада)</span><b>890 ₽</b></li>
+              <li><span>Смэш-бургер с мраморной говядиной и чеддером</span><b>420 ₽</b></li>
+              <li><span>Римская пицца Пепперони / 4 Сыра</span><b>540 ₽</b></li>
+              <li><span>Том-ям рамен / Удон с курицей терияки</span><b>390 ₽</b></li>
+              <li><span>Куриные стрипсы + начос с сырным соусом</span><b>310 ₽</b></li>
+            </ul>
+          </div>
+
+          <div class="menu-card">
+            <h3>Кофе-бар и напитки</h3>
+            <ul>
+              <li><span>Флэт уайт / Капучино / Раф солёная карамель</span><b>210 ₽</b></li>
+              <li><span>Авторский айс-лимонад Манго–Маракуйя 0.5 л</span><b>240 ₽</b></li>
+              <li><span>Энергетик Red Bull / Adrenaline / Monster</span><b>190–240 ₽</b></li>
+              <li><span>Кола / Тоник / Вода без газа в стекле</span><b>90–140 ₽</b></li>
+              <li><span>Густой молочный коктейль Oreo / Клубника</span><b>270 ₽</b></li>
+              <li><span>Заварной чайник чая на компанию (800 мл)</span><b>290 ₽</b></li>
+            </ul>
+          </div>
+
+          <div class="menu-card">
+            <h3>Про-девайсы и сервисы</h3>
+            <ul>
+              <li><span>Мышь Logitech G Pro X Superlight 2 / Razer Viper V3</span><b>100 ₽ / сессия</b></li>
+              <li><span>Магнитная клавиатура Wooting 60HE (Rapid Trigger)</span><b>120 ₽ / сессия</b></li>
+              <li><span>Клубный аккаунт с топ-играми Steam / EA / Battle.net</span><b>0 ₽</b></li>
+              <li><span>Доп. геймпад DualSense / Xbox Series</span><b>80 ₽ / час</b></li>
+              <li><span>Индивидуальная тренировка с кибер-тренером (CS2/Dota)</span><b>900 ₽ / час</b></li>
+              <li><span>Хранение личных девайсов в сейф-ячейке (месяц)</span><b>500 ₽</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 4: ОНЛАЙН-ЗАПИСЬ С ВЫБОРОМ ЗАЛА, МЕСТ И ВРЕМЕНИ (GTA 6 3D Model) -->
+    <section id="booking" class="section" data-scene="gta">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">МГНОВЕННАЯ БРОНЬ · БЕЗ ПРЕДОПЛАТЫ</span>
+            <h2>Онлайн-запись: выбор зала, мест и времени</h2>
+          </div>
+          <p class="section-sub">Бронь держится 20 минут после выбранного времени начала. При изменении планов отменить можно в один клик.</p>
+        </div>
+
+        <div class="booking-layout">
+          <!-- Левая колонка: выбор зала, схемы мест и времени -->
+          <form id="bookingForm" class="booking-card" autocomplete="off">
+            <div class="step-block">
+              <div class="step-title"><span>01</span> Выберите игровой зал</div>
+              <div class="hall-selector" id="hallSelector"></div>
+            </div>
+
+            <div class="step-block">
+              <div class="step-head-row">
+                <div class="step-title"><span>02</span> Дата и формат тарифа</div>
+                <span class="day-rate-indicator" id="rateBadge">Будний тариф</span>
+              </div>
+              <div class="form-row-3">
+                <div class="field">
+                  <label for="bookDate">Дата визита</label>
+                  <input type="date" id="bookDate" required>
+                </div>
+                <div class="field">
+                  <label for="bookTariff">Пакет / Длительность</label>
+                  <select id="bookTariff">
+                    <option value="h1">1 час</option>
+                    <option value="h2">2 часа</option>
+                    <option value="p3" selected>Пакет 3 часа (выгодно)</option>
+                    <option value="p5">Пакет 5 часов (−22%)</option>
+                    <option value="day">Пакет «День» (6 часов)</option>
+                    <option value="night">Пакет «Ночь» 22:00–08:00</option>
+                    <option value="full">Сутки 24 часа</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="promoInput">Промокод (необязательно)</label>
+                  <input type="text" id="promoInput" placeholder="FIRST или STUDENT">
+                </div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <div class="step-head-row">
+                <div class="step-title"><span>03</span> Время начала сессии</div>
+                <div class="legend-inline">
+                  <span><i class="lg free"></i> Свободно</span>
+                  <span><i class="lg chosen"></i> Выбрано</span>
+                  <span><i class="lg busy"></i> Занято</span>
+                </div>
+              </div>
+              <div class="time-grid" id="timeGrid"></div>
+            </div>
+
+            <div class="step-block">
+              <div class="step-head-row">
+                <div class="step-title"><span>04</span> Схема зала — выберите места рядом</div>
+                <span class="selected-count" id="seatCounter">Выбрано: 1 место</span>
+              </div>
+              <div class="floorplan-box">
+                <div class="screen-wall" id="hallZoneBanner">СХЕМА ЗАЛА · КОНТУРНАЯ ПОДСВЕТКА</div>
+                <div class="seat-map" id="seatMap"></div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <div class="step-title"><span>05</span> Опции и контакты</div>
+              <div class="addons-row">
+                <label class="check-chip">
+                  <input type="checkbox" id="optDevices" value="120">
+                  <span>Про-девайсы Wooting / Superlight 2 (+120 ₽)</span>
+                </label>
+                <label class="check-chip">
+                  <input type="checkbox" id="optCombo" value="590">
+                  <span>Принести комбо «Ночной Раш» к старту (+590 ₽)</span>
+                </label>
+              </div>
+              <div class="form-row-2">
+                <div class="field">
+                  <label for="guestName">Имя или никнейм</label>
+                  <input type="text" id="guestName" placeholder="Например, S1mple / Алексей" required>
+                </div>
+                <div class="field">
+                  <label for="guestPhone">Телефон для SMS-кода брони</label>
+                  <input type="tel" id="guestPhone" placeholder="+7 (999) 123-45-67" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="booking-footer">
+              <button type="submit" class="game-btn btn-gta btn-large" id="submitBtn">
+                <span class="btn-icon">★</span> Подтвердить запись
+              </button>
+              <p id="formFeedback" class="form-feedback" role="status"></p>
+            </div>
+          </form>
+
+          <!-- Правая колонка: живой чек + мои записи + быстрый тест кнопок игр -->
+          <aside class="summary-column">
+            <div class="summary-card">
+              <span class="eyebrow">ДЕТАЛИ ВАШЕЙ ЗАПИСИ</span>
+              <h3 id="sumHallName">Cyber Pro 240Hz</h3>
+              <ul class="summary-lines">
+                <li><span>Дата и время</span><b id="sumDateTime">—</b></li>
+                <li><span>Формат</span><b id="sumTariff">Пакет 3 часа</b></li>
+                <li><span>Выбранные места</span><b id="sumSeats">ПК #04</b></li>
+                <li><span>Дополнения</span><b id="sumAddons">Нет</b></li>
+                <li id="sumDiscountRow" class="discount-row" hidden><span>Скидка по промокоду</span><b id="sumDiscount">−0 ₽</b></li>
+              </ul>
+              <div class="summary-total">
+                <span>К оплате в клубе</span>
+                <strong id="sumTotal">600 ₽</strong>
+              </div>
+              <p class="summary-note">Оплата на ресепшене наличными, картой или СБП при посадке.</p>
+            </div>
+
+            <div class="summary-card">
+              <div class="panel-header">
+                <h4>Мои активные брони</h4>
+                <button type="button" class="text-clear" id="clearBookingsBtn" hidden>Очистить все</button>
+              </div>
+              <div id="myBookingsList" class="bookings-list">
+                <p class="empty-bookings">У вас пока нет активных записей. Выберите время и место слева.</p>
+              </div>
+            </div>
+
+            <div class="summary-card style-showcase">
+              <span class="eyebrow">СТИЛИЗАЦИЯ ИНТЕРФЕЙСА</span>
+              <h4>Переключить 3D-артефакт</h4>
+              <p>Листайте сайт или выберите артефакт любимой игры:</p>
+              <div class="mini-btn-stack">
+                <button type="button" class="game-btn btn-cs full-w scene-trigger" data-target-scene="cs">⌖ CS:GO — Керамбит</button>
+                <button type="button" class="game-btn btn-mc full-w scene-trigger" data-target-scene="mc">⛏ Minecraft — Кристалл Края</button>
+                <button type="button" class="game-btn btn-dota full-w scene-trigger" data-target-scene="dota">❖ Dota 2 — Аегис</button>
+                <button type="button" class="game-btn btn-gta full-w scene-trigger" data-target-scene="gta">★ GTA VI — Vice City</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="brand">
+          <span class="brand-mark">◈</span>
+          <span class="brand-text">AETHER<small>CYBER LOUNGE</small></span>
+        </div>
+        <p class="footer-meta">Круглосуточный киберспортивный лаунж · Бесплатная парковка для гостей</p>
+      </div>
+      <div class="footer-contacts">
+        <b>Ежедневно 24/7 · +7 (800) 555-72-40</b>
+        <span>ул. Киберспортивная, 14, 2 этаж · Telegram: @aether_club</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js для аппаратного 3D рендера (с встроенным автономным 3D-фолбэком в scene3d.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="scene3d.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
